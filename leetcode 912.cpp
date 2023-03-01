@@ -17,3 +17,9 @@ public:
         return nums;
     }
 }
+//This solution given below worked
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        
+        nums.sort()
+        return nums
