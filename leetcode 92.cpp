@@ -1,0 +1,38 @@
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
+        if(!head || !head->next) return head;
+        
+        ListNode* dummy = new ListNode(-1);
+        dummy->next = head;
+        ListNode* cur = dummy;
+        ListNode* pre;
+        ListNode *rdummy = new ListNode(-1), *rtail, *rcur;
+        
+        //start from dummy because we need the previous node of reversed list
+        for(int i = 0; cur; ++i){
+            // cout << i << ": " << cur->val << endl;
+            ListNode* next = cur->next;
+            if(i == m-1){
+                //the previous node of reversed list
+                pre = cur;
+            }else if(i >= m && i <= n){
+                if(i == m) rtail = cur;
+                //prepend cur to the head of reversed list
+                cur->next = rdummy->next;
+                rdummy->next = cur;
+                //connect reversed list's tail with the org list
+                if(i == n){
+                    rtail->next = next;
+                    break;
+                }
+            }
+            cur = next;
+        }
+        
+        //connect reversed list's head with the org list
+        pre->next = rdummy->next;
+        
+        return dummy->next;
+    }
+};
